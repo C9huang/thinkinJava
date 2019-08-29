@@ -1,5 +1,6 @@
 package file;
 // io/DirList1a.java
+
 // TIJ4 Chapter IO, Exercise 1, page 906
 /*/ Modify DirList.java (or one of it's variants) so that the FilenameFilter
 * opens and reads each file (using the net.mindview.util.TextFile utility) 
@@ -19,32 +20,11 @@ package file;
 import java.util.regex.*;
 import java.io.*;
 import java.util.*;
-import net.mindview.util.*; 
+import net.mindview.util.*;
 
-public class DirList1a {		
+public class DirList1a {
 	public static void main(final String[] args) {
-		File path = new File(".");
-		final String[] list;
-		if(args.length < 2) { 
-			list = path.list();
-			System.out.println("Usage: enter filtering regex");
-			System.out.println(
-			"followed by words, one or more of which each file must contain.");
+		TextFile a= new TextFile("E:\\20190827Demo\\thinkinJava\\IODemo\\src\\file\\DirList1a.java", "\\W+");
+		System.out.println(a.toString());
 		}
-		else {
-			list = path.list(new FilenameFilter() {
-				private Pattern pattern = Pattern.compile(args[0]);
-				public boolean accept(File dir, String name) {
-					return pattern.matcher(name).matches() &&
-					!(Collections.disjoint(
-						Arrays.asList(args).subList(1, args.length),
-						new TextFile(name, "\\W+")
-					));
-				}
-			});
-		}
-		Arrays.sort(list, String.CASE_INSENSITIVE_ORDER);
-		for(String dirItem : list)
-			System.out.println(dirItem);
-	}
 }
